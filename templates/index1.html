@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Ria's App</title>
+  </head>
+  <body>
+    <div class="text-center mt-2 col-md-12">
+      <h1>Hello, {{user}}!</h1>
+      <button id="hideTracks" onclick="hideTracksFunc()" type="button" class="btn btn-success">Hide Saved Tracks</button>
+      <button id="viewTracks" onclick="viewTracksFunc()" type="button" class="btn btn-success">View Saved Tracks</button>
+    </div>
+
+    <!-- Tracks -->
+    <div id='tracklist' style="display: none;" class="text-center">
+      {% for track in tracks %}
+        <p>{{ track }}</p>
+      {% endfor %}
+    </div>
+    <script>
+    function hideTracksFunc() { $("#tracklist").hide() }
+    function viewTracksFunc() { $("#tracklist").show()}
+    </script>
+
+    <!-- Playlists -->
+    <div class="text-center mt-2 col-md-12"> 
+      <button id="hidePlaylists" onclick="hidePlaylists()" type="button" class="btn btn-success">Hide Playlists</button>
+      <button id="viewPlaylists" onclick="viewPlaylists()" type="button" class="btn btn-success">View Playlists</button>
+    </div>
+    <div id='playlistlist' style="display: none;" class="text-center">
+      {% for playlist in playlists %}
+        <p>{{ playlist }}</p>
+      {% endfor %}
+    </div>
+    <script>
+    function hidePlaylists() { $("#playlistlist").hide() }
+    function viewPlaylists() { $("#playlistlist").show() }
+    </script>
+
+    <!-- Positive, Negative, Neutral Playlists -->
+    <div class="text-center mt-2 col-sm-12 btn-group-sm"> 
+        <button id="hidePosPlaylists" onclick="hidePosPlaylists()" type="button" class="btn btn-warning">Hide Positive Playlists</button>
+        <button id="viewPosPlaylists" onclick="viewPosPlaylists()" type="button" class="btn btn-warning">View Positive Playlists</button>
+        <button id="hideNegPlaylists" onclick="hideNegPlaylists()" type="button" class="btn btn-warning">Hide Negative Playlists</button>
+        <button id="viewNegPlaylists" onclick="viewNegPlaylists()" type="button" class="btn btn-warning">View Negative Playlists</button>
+        <button id="hideNeuPlaylists" onclick="hideNeuPlaylists()" type="button" class="btn btn-warning">Hide Neutral Playlists</button>
+        <button id="viewNeuPlaylists" onclick="viewNeuPlaylists()" type="button" class="btn btn-warning">View Neutral Playlists</button>
+      </div>
+      <div id='posplaylistlist' style="display: none;" class="text-center">
+        {% for playlist in positive_playlists %}
+          <p>{{ playlist }}</p>
+        {% endfor %}
+      </div>
+      <div id='negplaylistlist' style="display: none;" class="text-center">
+        {% for playlist in negative_playlists %}
+          <p>{{ playlist }}</p>
+        {% endfor %}
+      </div>
+      <div id='neuplaylistlist' style="display: none;" class="text-center">
+        {% for playlist in neutral_playlists %}
+          <p>{{ playlist }}</p>
+        {% endfor %}
+      </div>
+      <script>
+      function hidePosPlaylists() { $("#posplaylistlist").hide() }
+      function viewPosPlaylists() { $("#posplaylistlist").show() }
+      function hideNegPlaylists() { $("#negplaylistlist").hide() }
+      function viewNegPlaylists() { $("#negplaylistlist").show() }
+      function hideNeuPlaylists() { $("#neuplaylistlist").hide() }
+      function viewNeuPlaylists() { $("#neuplaylistlist").show() }
+      </script>
+
+    <!-- User Marking Playlists -->
+    <div class="container">
+      <div class="row">
+          <p><h4>The playlists have already been anaylsed for audio features and sorted into 
+              positive, negative and neutral categories, but if you would like to manually switch a playlist
+              from one category to another, you can do it here:</h4></p>
+      </div>
+      <div class="row">
+          <!-- Positive -->
+          <div class="text-center col-sm">
+            <form method="POST">
+              <div class="form-group">
+                <label for="Postive">Enter Positive Playlists</label>
+                <input type="text" class="form-control" name="Positive" id="Positive" placeholder="Positive Playlists">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit Positive Playlist</button>
+            </form>
+          </div>
+          <!-- Negative -->
+          <div class="text-center col-sm">
+            <form method="POST">
+              <div class="form-group">
+                <label for="Negative">Enter Negative Playlists</label>
+                <input type="text" class="form-control" name="Negative" id="Negative" placeholder="Negative Playlists">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit Negative Playlist</button>
+            </form>
+          </div>
+          <!-- Neutral -->
+          <div class="text-center col-sm">
+            <form method="POST">
+              <div class="form-group">
+                <label for="Neutral">Enter Neutral Playlists</label>
+                <input type="text" class="form-control" name="Neutral" id="Neutral" placeholder="Neutral Playlists">
+              </div>
+              <button type="submit" class="btn btn-primary">Submit Neutral Playlist</button>
+            </form>
+          </div>
+      </div> 
+    </div>
+    
+    <!-- Words -->
+    <div class="text-center ml-5 mr-5">
+        <p><h4>Enter words describing how you are feeling rightnow. Based on these words, we'll suggest a playlist of yours to you:</h4></p>
+      <form method="POST">
+        <div class="form-group">
+          <label for="Words">Enter Words</label>
+          <input type="text" class="form-control" name="Words" id="Words" placeholder="Words">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <div class="text-center mt-2 col-md-12">
+      <button id="hideWords" onclick="hideWords()" type="button" class="btn btn-success">Hide Words</button>
+      <button id="viewWords" onclick="viewWords()" type="button" class="btn btn-success">View Words</button>
+    </div>
+    <div id='wordlist' style="display: none;" class="text-center">
+      {% for word in words %}
+        <p>{{ word }}</p>
+      {% endfor %}
+    </div>
+    <script>
+    function hideWords() { $("#wordlist").hide() }
+    function viewWords() { $("#wordlist").show() }
+    </script>
+
+    <!-- Playlist Suggestion -->
+    <div class="text-center mt-2 col-md-12"> 
+      <button id="getSuggestion" onclick="getSuggestion()" type="button" class="btn btn-primary">Get Playlist Suggestion</button>
+    </div>
+    <div id='suggestion' style="display: none;" class="text-center">
+      <p>{{ suggestion }}</p>
+    </div>
+    <script>
+    function getSuggestion() { $("#suggestion").show() }
+    </script>
+  
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
